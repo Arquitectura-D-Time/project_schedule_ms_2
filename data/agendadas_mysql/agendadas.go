@@ -3,8 +3,8 @@ package agendadas_mysql
 import (
 	"context"
 	"database/sql"
-	repo "project_schedule_ms/data"
-	model "project_schedule_ms/model"
+	repo "project_schedule_ms_2/data"
+	model "project_schedule_ms_2/model"
 )
 
 func NewSQLAgendadas(Conn *sql.DB) repo.Agendadas {

@@ -8,10 +8,10 @@ import (
 
 	"github.com/go-chi/chi"
 
-	driver "project_schedule_ms/common"
-	repository "project_schedule_ms/data"
-	agendadas "project_schedule_ms/data/agendadas_mysql"
-	model "project_schedule_ms/model"
+	driver "project_schedule_ms_2/common"
+	repository "project_schedule_ms_2/data"
+	agendadas "project_schedule_ms_2/data/agendadas_mysql"
+	model "project_schedule_ms_2/model"
 )
 
 func NewAgendadasHandler(db *driver.DB) *Agendadas {

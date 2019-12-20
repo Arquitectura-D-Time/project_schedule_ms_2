@@ -8,9 +8,9 @@ import (
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 
-	driver "project_schedule_ms/common"
-	ac "project_schedule_ms/controllers/agendadas_controller"
-	hc "project_schedule_ms/controllers/horario_controller"
+	driver "project_schedule_ms_2/common"
+	ac "project_schedule_ms_2/controllers/agendadas_controller"
+	hc "project_schedule_ms_2/controllers/horario_controller"
 )
 
 func main() {

@@ -8,10 +8,10 @@ import (
 
 	"github.com/go-chi/chi"
 
-	driver "project_schedule_ms/common"
-	repository "project_schedule_ms/data"
-	horario "project_schedule_ms/data/horario_mysql"
-	model "project_schedule_ms/model"
+	driver "project_schedule_ms_2/common"
+	repository "project_schedule_ms_2/data"
+	horario "project_schedule_ms_2/data/horario_mysql"
+	model "project_schedule_ms_2/model"
 )
 
 func NewHorarioHandler(db *driver.DB) *Horario {

@@ -4,8 +4,8 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
-	repo "project_schedule_ms/data"
-	model "project_schedule_ms/model"
+	repo "project_schedule_ms_2/data"
+	model "project_schedule_ms_2/model"
 )
 
 func NewSQLHorario(Conn *sql.DB) repo.Horario {

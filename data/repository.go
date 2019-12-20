@@ -2,7 +2,7 @@ package data
 
 import (
 	"context"
-	"project_schedule_ms/model"
+	"project_schedule_ms_2/model"
 )
 
 type Horario interface {
