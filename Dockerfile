@@ -16,4 +16,4 @@ COPY . .
 # Build the Go app
 RUN go build 
 
-CMD ["./project_schedule_ms"]
+CMD ["./project_schedule_ms_2"]
