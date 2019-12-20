@@ -2,7 +2,7 @@ package driver
 
 import (
 	"database/sql"
-	"ftm"
+	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 )
 
