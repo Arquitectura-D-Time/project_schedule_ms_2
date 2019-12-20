@@ -1,0 +1,358 @@
+#Test with: http://editor.swagger.io/
+
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Microservice for Scheduling
+  description: Go + MySQL
+  license:
+    name: Software Architecture, 2019-II
+host: 10.128.0.2:3003
+basePath: /project_schedule_ms
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /horario:
+    post:
+      summary: Agregar horario de tutoria
+      operationId: Create
+      parameters:
+        - name: horario
+          in: body
+          required: true
+          description: Horario Object
+          schema:
+            $ref: '#/definitions/HorarioInput'
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+    get:
+      summary: Devuelve todas las tutorias creadas
+      operationId: Fetch
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/HorarioList'
+        '406':
+          description: Not Acceptable (Invalid Params)
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+  /horario/{IDtutoria}:
+    get:
+      summary: Devuelve la tutoria con el id especificado
+      operationId: GetByID
+      parameters:
+        - name: IDtutoria
+          in: path
+          description: The id of the tutorial to be returned
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/Horario'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '406':
+            description: Not Acceptable (Invalid Params)
+            schema:
+              $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+    put:
+      summary: Actualiza el horario de la tutoria seleccionada
+      operationId: Update
+      parameters:
+        - name: IDtutoria
+          in: path
+          description: The id of the tutorial to be updated
+          required: true
+          type: integer
+        - name: horario
+          in: body
+          required: true
+          description: Horario Object
+          schema:
+            $ref: '#/definitions/HorarioInput'
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '406':
+            description: Not Acceptable (Invalid Params)
+            schema:
+              $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+    delete:
+      summary: Borra el horario de la tutoria seleccionada
+      operationId: Delete
+      parameters:
+        - name: IDtutoria
+          in: path
+          description: The id of the tutorial to be deleted
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Ok
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '406':
+            description: Not Acceptable (Invalid Params)
+            schema:
+              $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+  /agendadas:
+    post:
+      summary: Agendar tutoria por el alumno
+      operationId: CreateAg
+      parameters:
+        - name: horario
+          in: body
+          required: true
+          description: Agendar Object
+          schema:
+            $ref: '#/definitions/AgendarInput'
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+    get:
+      summary: Devuelve todas las tutorias y alumnos agendados en las mismas
+      operationId: FetchAg
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/AgendarList'
+        '406':
+          description: Not Acceptable (Invalid Params)
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+            
+  /agendadas/{IDtutoria}:        
+    get:
+      summary: Devuelve los alumnos agendados en dicha tutoria
+      operationId: GetByIDAg
+      parameters:
+        - name: IDtutoria
+          in: path
+          description: The id of the tutorial to be returned
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/Agendar'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '406':
+            description: Not Acceptable (Invalid Params)
+            schema:
+              $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+            
+    put:
+      summary: Actualiza el alumno agendado en dicha tutoria
+      operationId: UpdateAg
+      parameters:
+        - name: IDtutoria
+          in: path
+          description: The id of the tutorial to be updated
+          required: true
+          type: integer
+        - name: agendadas
+          in: body
+          required: true
+          description: Agendadas Object
+          schema:
+            $ref: '#/definitions/AgendarInput'
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '406':
+            description: Not Acceptable (Invalid Params)
+            schema:
+              $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+    delete:
+      summary: Elimina el alumno agendado en dicha tutoria
+      operationId: DeleteAg
+      parameters:
+        - name: IDtutoria
+          in: path
+          description: The id of the tutorial to be deleted
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Ok
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '406':
+            description: Not Acceptable (Invalid Params)
+            schema:
+              $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+          
+definitions:
+
+  # Horario
+  Horario:
+    type: object
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      description:
+        type: string
+
+  HorarioInput:
+    type: object
+    properties:
+      name:
+        type: string
+      description:
+        type: string
+
+  HorarioList:
+    type: object
+    required:
+      - total
+      - list
+    properties:
+      total:
+        type: number
+      list:
+        type: array
+        items:
+          $ref: '#/definitions/Horario'
+          
+          
+  # Agendadas
+  Agendar:
+    type: object
+    properties:
+      id:
+        type: string
+      user_id:
+        type: integer
+      title: 
+        type: string
+      destination:
+        type: string
+      size:
+        type: integer
+      filename:
+        type: string
+      originalname:
+        type: string
+      encoding:
+        type: string
+      fieldname:
+        type: string
+        
+  AgendarInput:
+    type: object
+    properties:
+      user_id:
+        type: integer
+      title: 
+        type: string
+      destination:
+        type: string
+
+
+  AgendarList:
+    type: object
+    required:
+      - total
+      - list
+    properties:
+      total:
+        type: number
+      list:
+        type: array
+        items:
+          $ref: '#/definitions/Agendar'
+
+# Errors
+  ErrorModel:
+    type: object
+    required:
+      - message
+      - id
+    properties:
+      message:
+        type: string
+      id:
+        type: number
+      description:
+        type: object

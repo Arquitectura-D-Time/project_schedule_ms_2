@@ -1,0 +1,35 @@
+version: "2.1"
+services:
+  schedule_ms:
+      build:
+        context: ./
+      ports:
+        - "5003:5003"
+      depends_on:
+        schedule_db:
+          condition: service_healthy
+      healthcheck:
+        interval: 20s
+        retries: 15
+      environment:
+        MYSQL_ROOT_PASSWORD: 1234
+        MYSQL_DATABASE: agendamiento
+        MYSQL_USER: Fernando
+        MYSQL_PASSWORD: 2123
+      
+  schedule_db:
+    image: mysql:5.7
+    healthcheck:
+      test: "mysqlcheck -u$$MYSQL_USER -p$$MYSQL_PASSWORD $$MYSQL_DATABASE"
+      interval: 20s
+      timeout: 5s
+      retries: 15
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: agendamiento
+      MYSQL_USER: Fernando
+      MYSQL_PASSWORD: 2123
+    security_opt:
+    - seccomp:unconfined
+    ports:
+      - "3003:3306"
